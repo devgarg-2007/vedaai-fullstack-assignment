@@ -1014,7 +1014,12 @@ async function generateAssignment() {
             generatedPaper: a.generatedPaper,
             createdAt: a.createdAt
         };
-        window.useAppStore.getState().addAssignment(newAssignment);
+        if (window.useAppStore && typeof window.useAppStore.getState === 'function') {
+            window.useAppStore.getState().addAssignment(newAssignment);
+        } else {
+            console.warn('Zustand store not loaded! Unable to add assignment to global state.');
+        }
+        
         updateBadge();
         updateDashboardStats();
         renderLibrary();

@@ -1,4 +1,4 @@
-import { createStore } from 'https://cdn.jsdelivr.net/npm/zustand@4.4.1/vanilla.js';
+import { createStore } from 'https://esm.sh/zustand@4.4.1/vanilla';
 
 // [Zustand Implementation] Centralized vanilla store
 const useAppStore = createStore((set) => ({
