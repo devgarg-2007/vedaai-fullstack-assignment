@@ -1020,7 +1020,10 @@ async function generateAssignment() {
         renderLibrary();
 
         // Show output
-        showOutputForAssignment(0);
+        console.log("API DATA:", data);
+        console.log("NEW ASSIGNMENT:", newAssignment);
+
+        // showOutputForAssignment(0);
         showToast('Assignment generated successfully!', 'success');
 
     } catch (error) {
