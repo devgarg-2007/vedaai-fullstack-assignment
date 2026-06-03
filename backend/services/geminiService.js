@@ -87,8 +87,12 @@ Rules:
 - Number all questions sequentially across sections.
 - Include an answer for every question in the answerKey.
 - Ensure totalMarks equals the sum of marks of all questions.
+- MATHEMATICS/LATEX: You MUST use valid MathJax-compatible LaTeX for any math expressions.
+- CRITICAL JSON ESCAPING: You MUST double-escape all backslashes in JSON (e.g., use \\\\frac{}{} instead of \\frac{}{}, use \\\\int_{a}^{b} instead of \\int_{a}^{b}).
+- Ensure perfectly balanced braces {} and brackets [].
+- Never leave an unmatched $ sign (always use them in pairs like $...$ or $$...$$).
 - Return ONLY the JSON object, nothing else.
-`;
+\`;
 
   console.log("Sending prompt to Groq");
   console.log("Prompt length:", prompt.length);
@@ -105,14 +109,22 @@ Rules:
   const rawText = chatCompletion.choices[0].message.content;
 
   let cleaned = rawText.trim();
-  if (cleaned.startsWith("```")) {
-    cleaned = cleaned.replace(/^```(?:json)?\s*\n?/, "");
-    cleaned = cleaned.replace(/\n?\s*```\s*$/, "");
+  if (cleaned.startsWith("\`\`\`")) {
+    cleaned = cleaned.replace(/^\`\`\`(?:json)?\s*\n?/, "");
+    cleaned = cleaned.replace(/\n?\s*\`\`\`\s*$/, "");
     cleaned = cleaned.trim();
   }
+  
+  // Deep Diagnostic Logging for MathJax inspection
+  console.log("\n================ [DEBUG: GROQ RESPONSE] ================\n");
+  console.log("1. RAW GROQ TEXT:\n", rawText);
+  console.log("\n2. CLEANED STRING (Before Parse):\n", cleaned);
 
   try {
-    return JSON.parse(cleaned);
+    const parsedData = JSON.parse(cleaned);
+    console.log("\n3. PARSED JSON OBJECT:\n", JSON.stringify(parsedData, null, 2));
+    console.log("\n==========================================================\n");
+    return parsedData;
   } catch (parseError) {
     console.error("Failed to parse Groq response:", parseError.message);
     console.error("Raw response:", rawText);

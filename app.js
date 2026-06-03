@@ -812,6 +812,11 @@ function renderGeneratedPaper(assignment) {
 
     html += `</div>`;
 
+    // Frontend Diagnostic Logging for MathJax
+    console.log("\n================ [DEBUG: FRONTEND RENDER] ================\n");
+    console.log("FINAL INJECTED HTML PAYLOAD:\n", html);
+    console.log("\n==========================================================\n");
+
     container.innerHTML = html;
 
     // Render LaTeX math expressions via MathJax
