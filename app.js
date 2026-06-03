@@ -814,6 +814,11 @@ function renderGeneratedPaper(assignment) {
 
     container.innerHTML = html;
 
+    // Render LaTeX math expressions via MathJax
+    if (window.MathJax) {
+        window.MathJax.typesetPromise([container]).catch((err) => console.log('MathJax error:', err));
+    }
+
     // Update AI message
     const aiText = document.querySelector('#viewOutput .ai-text p');
     if (aiText && currentUser) {
