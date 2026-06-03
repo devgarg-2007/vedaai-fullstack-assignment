@@ -87,10 +87,11 @@ Rules:
 - Number all questions sequentially across sections.
 - Include an answer for every question in the answerKey.
 - Ensure totalMarks equals the sum of marks of all questions.
-- MATHEMATICS/LATEX: You MUST use valid MathJax-compatible LaTeX for any math expressions.
-- CRITICAL JSON ESCAPING: You MUST double-escape all backslashes in JSON (e.g., use \\\\frac{}{} instead of \\frac{}{}, use \\\\int_{a}^{b} instead of \\int_{a}^{b}).
+- MATHEMATICS/LATEX (CRITICAL): You MUST format ALL mathematical symbols, equations, and fractions using valid MathJax LaTeX. 
+- ALWAYS enclose inline math in $...$ and block math in $$...$$. 
+- ALWAYS use backslashes for commands (e.g., use \\int instead of int, use \\frac instead of frac).
+- CRITICAL JSON ESCAPING: You MUST double-escape all backslashes in JSON (e.g., use \\\\frac{}{} instead of \\frac{}{}, use \\\\int instead of \\int).
 - Ensure perfectly balanced braces {} and brackets [].
-- Never leave an unmatched $ sign (always use them in pairs like $...$ or $$...$$).
 - Return ONLY the JSON object, nothing else.
 \`;
 
@@ -115,6 +116,34 @@ Rules:
     cleaned = cleaned.trim();
   }
   
+  // FLAWLESS JSON SANITIZATION:
+  // Automatically fix any single backslashes (like \frac or \int) that the AI forgot to double escape.
+  // We strictly ignore valid JSON escapes like \n, \r, \t, \", \\, and \/ to prevent JSON corruption.
+  cleaned = cleaned.replace(/(?<!\\\\)\\\\(?!["\\\\/nrt])/g, "\\\\\\\\");
+
+  // Recursive sanitization for mathematical robustness (Fix missing $ terminators)
+  const sanitizeGeneratedPaper = (obj) => {
+    if (typeof obj === 'string') {
+        let text = obj;
+        const dollarCount = (text.match(/\\$/g) || []).length;
+        if (dollarCount % 2 !== 0) {
+            text += '$';
+        }
+        return text;
+    }
+    if (Array.isArray(obj)) {
+        return obj.map(sanitizeGeneratedPaper);
+    }
+    if (obj !== null && typeof obj === 'object') {
+        const newObj = {};
+        for (let key in obj) {
+            newObj[key] = sanitizeGeneratedPaper(obj[key]);
+        }
+        return newObj;
+    }
+    return obj;
+  };
+
   // Deep Diagnostic Logging for MathJax inspection
   console.log("\n================ [DEBUG: GROQ RESPONSE] ================\n");
   console.log("1. RAW GROQ TEXT:\n", rawText);
@@ -124,7 +153,7 @@ Rules:
     const parsedData = JSON.parse(cleaned);
     console.log("\n3. PARSED JSON OBJECT:\n", JSON.stringify(parsedData, null, 2));
     console.log("\n==========================================================\n");
-    return parsedData;
+    return sanitizeGeneratedPaper(parsedData);
   } catch (parseError) {
     console.error("Failed to parse Groq response:", parseError.message);
     console.error("Raw response:", rawText);
