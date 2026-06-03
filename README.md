@@ -202,5 +202,12 @@ Navigate to `http://localhost:3000`.
 4. **Student Portal**: Expand the architecture to allow students to log in, view assigned papers, and submit answers.
 
 ---
+## Live Demo
+
+Frontend:
+https://vedaai-fullstack-assignment-1.onrender.com/
+
+Backend:
+https://vedaai-fullstack-assignment.onrender.com/
 
 *Designed and engineered for the VedaAI Full Stack Engineering Assignment.*
