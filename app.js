@@ -1,7 +1,8 @@
 // ===== VedaAI Assignment Management - App Logic =====
 
 // ===== CONFIG =====
-const API_BASE = "http://localhost:8000/api";
+const API_BASE_URL = "https://vedaai-fullstack-assignment.onrender.com";
+const API_BASE = `${API_BASE_URL}/api`;
 
 // ===== STATE =====
 // [Zustand Implementation] Proxy legacy variables to useAppStore
@@ -199,7 +200,7 @@ async function enterApp() {
     document.getElementById('appContainer').classList.remove('hidden');
 
     if (typeof io !== 'undefined' && !socket) {
-        socket = io('http://localhost:8000');
+        socket = io(API_BASE_URL);
         socket.on('connect', () => {
             if (currentUser) socket.emit('join', currentUser.id);
         });
