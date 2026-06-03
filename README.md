@@ -14,6 +14,17 @@ https://vedaai-fullstack-assignment.onrender.com/
 
 ---
 
+## Configuration
+
+The deployed frontend is configured to use the production backend hosted on Render.
+
+Backend URL:
+https://vedaai-fullstack-assignment.onrender.com
+
+For local development, update the API_BASE_URL in the frontend configuration to point to your local backend instance.
+
+---
+
 ## Deployment
 
 ### Frontend
