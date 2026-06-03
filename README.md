@@ -73,7 +73,7 @@ The platform includes comprehensive assignment tracking, group management, real-
                                                +--------------------+
                                                |                    |
                                                |      Groq API      |
-                                               |  (Llama 3.3 70B)   |
+                                               |                    |
                                                |                    |
                                                +--------------------+
 ```
