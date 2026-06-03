@@ -4,6 +4,33 @@
 
 ---
 
+## Live Demo
+
+Frontend:
+https://vedaai-fullstack-assignment-1.onrender.com/
+
+Backend:
+https://vedaai-fullstack-assignment.onrender.com/
+
+---
+
+## Deployment
+
+### Frontend
+- Hosted on Render
+- Vanilla JavaScript
+- Zustand State Management
+- Socket.IO Client
+
+### Backend
+- Hosted on Render
+- Node.js + Express
+- MongoDB Atlas
+- JWT Authentication
+- Groq AI Integration
+
+---
+
 ## 📖 Overview
 
 VedaAI Assignment Manager was built to streamline the time-consuming process of exam creation for educators. By uploading reference materials (PDFs) and defining custom parameters (marks distribution, difficulty levels, and question types), the application leverages the **Groq Llama 3.3 70B** AI model to automatically generate complete, print-ready exam papers in seconds. 
@@ -157,27 +184,9 @@ GEMINI_API_KEY=your_groq_api_key_here
 # Inside the backend/ directory
 npm start
 ```
-The backend server will launch on `http://localhost:8000`.
+The backend server will launch on `https://vedaai-fullstack-assignment.onrender.com`.
 
-### 5. Access the Frontend
-Open `index.html` directly in your browser, or serve it using a lightweight local server:
-```bash
-# Using Python
-python3 -m http.server 3000
-```
-Navigate to `http://localhost:3000`.
 
----
-
-## 📸 Screenshots
-
-| Dashboard & Statistics | Exam Generation Output |
-| :---: | :---: |
-| ![Dashboard Placeholder](https://via.placeholder.com/400x250?text=Dashboard+UI) | ![Exam Placeholder](https://via.placeholder.com/400x250?text=Generated+Exam+Paper) |
-| **Search & Sort Assignments** | **Delete Confirmation Modal** |
-| ![Search Placeholder](https://via.placeholder.com/400x250?text=Search+and+Sort) | ![Modal Placeholder](https://via.placeholder.com/400x250?text=Custom+Delete+Modal) |
-
----
 
 ## 🌐 API Endpoints
 
